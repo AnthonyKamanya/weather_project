@@ -1,9 +1,14 @@
-fetch('https://api.github.com/users/AnthonyKamanya/repos',GET)
+fetch('https://api.github.com/users/AnthonyKamanya/repos')
 .then((response)=>{
     if(!response.ok){
-        alert("Sorry please try again")
+        throw new Error("Sorry please try again");
     }
-    return response.json
+    return response.json()
 })
-.catch(()=>{})
+.then((data)=>{
+    console.log(data)
+})
+.catch((error)=>{
+    console.log('An error occurred:', error)
+})
 .finally(()=>{})

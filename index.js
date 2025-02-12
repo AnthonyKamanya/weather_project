@@ -22,7 +22,11 @@ async function checkWeather(location) {
     const {lat,lon,name} = await getLocation(location)
     console.log(name)
     const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m`)
-    const data = await response.json()
+    if(!response.ok){
+        document.querySelector(".error").style.display = "block"
+        document.querySelector(".weather").style.display = "none"
+    }else{
+        const data = await response.json()
     console.log(data);   
     // Updating the text in the app
     document.querySelector(".city").innerHTML = name
@@ -46,6 +50,9 @@ async function checkWeather(location) {
 
     //Blocking the weather when there is no input
     document.querySelector(".weather").style.display = "block"
+    document.querySelector(".error").style.display = "none"
+    }
+    
     
     }
 
